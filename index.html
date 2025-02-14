@@ -16,15 +16,9 @@
 }
 
 @keyframes gradientBG {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .snowflake {
@@ -33,18 +27,15 @@
   font-size: 1em;
   animation: fall linear infinite;
 }
+
 @keyframes fall {
-  0% {
-    transform: translateY(-100vh);
-  }
-  100% {
-    transform: translateY(100vh);
-  }
+  0% { transform: translateY(-100vh); }
+  100% { transform: translateY(100vh); }
 }
 </style>
 </head>
 <body>
-<audio autoplay loop>
+<audio autoplay id="backgroundMusic" loop>
   <source src="./img/webding.mp3" type="audio/mpeg">
 </audio>
 
@@ -62,12 +53,8 @@
 </div>
 
 <div style="display: flex; flex-direction: column; align-items: center; gap: 20px">
-  <div>
-    <img src="./img/1..png" alt="Image 1" style="width: 600px; height: auto;" />
-  </div>
-  <div>
-    <img src="./img/2.png" alt="Image 2" style="width: 600px; height: auto;" />
-  </div>
+  <div><img src="./img/1..png" alt="Image 1" style="width: 600px; height: auto;" /></div>
+  <div><img src="./img/2.png" alt="Image 2" style="width: 600px; height: auto;" /></div>
   <div>
     <img src="./img/3.png" alt="Image 3" style="width: 300px; height: auto;" />
     <img src="./img/5.png" alt="Image 3" style="width: 300px; height: auto;" />
@@ -84,6 +71,19 @@ function createSnowflakes() {
   });
 }
 createSnowflakes();
+
+// Tự động phát nhạc hoặc yêu cầu phát khi có sự kiện click
+function playMusic() {
+  const audio = document.getElementById("backgroundMusic");
+  audio.play().catch(error => {
+    console.log("Autoplay bị chặn, sẽ phát sau khi người dùng click", error);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  playMusic();
+  document.addEventListener("click", playMusic, { once: true });
+});
 </script>
 </body>
 </html>
