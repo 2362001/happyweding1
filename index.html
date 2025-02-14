@@ -1,97 +1,138 @@
 <!DOCTYPE html>
 <html>
-<head>
-<style>
-.snowflakes {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: -1;
-  background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96e6a1);
-  animation: gradientBG 15s ease infinite;
-  background-size: 400% 400%;
-}
+  <head>
+    <style>
+      .snowflakes {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+        background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96e6a1);
+        animation: gradientBG 15s ease infinite;
+        background-size: 400% 400%;
+      }
 
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
 
-.snowflake {
-  position: absolute;
-  color: #fff;
-  font-size: 1em;
-  animation: fall linear infinite;
-}
+      .snowflake {
+        position: absolute;
+        color: #fff;
+        font-size: 1em;
+        animation: fall linear infinite;
+      }
 
-@keyframes fall {
-  0% { transform: translateY(-100vh); }
-  100% { transform: translateY(100vh); }
-}
-</style>
-</head>
-<body>
+      @keyframes fall {
+        0% {
+          transform: translateY(-100vh);
+        }
+        100% {
+          transform: translateY(100vh);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <audio id="backgroundMusic" loop muted>
+      <source src="./img/bb.mp3" type="audio/mpeg" />
+    </audio>
 
-<audio id="backgroundMusic" loop muted>
-  <source src="./img/bb.mp3" type="audio/mpeg">
-</audio>
+    <div class="snowflakes" aria-hidden="true">
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❆</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❆</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❆</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❆</div>
+      <div class="snowflake">❅</div>
+      <div class="snowflake">❆</div>
+    </div>
 
-<div class="snowflakes" aria-hidden="true">
-  <div class="snowflake">❅</div>
-  <div class="snowflake">❆</div>
-  <div class="snowflake">❅</div>
-  <div class="snowflake">❆</div>
-  <div class="snowflake">❅</div>
-  <div class="snowflake">❆</div>
-  <div class="snowflake">❅</div>
-  <div class="snowflake">❆</div>
-  <div class="snowflake">❅</div>
-  <div class="snowflake">❆</div>
-</div>
+    <div
+      style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      "
+    >
+      <div>
+        <img
+          src="./img/1..png"
+          alt="Image 1"
+          style="width: 600px; height: auto"
+        />
+      </div>
+      <div>
+        <img
+          src="./img/2.png"
+          alt="Image 2"
+          style="width: 600px; height: auto"
+        />
+      </div>
+      <div>
+        <img
+          src="./img/3.png"
+          alt="Image 3"
+          style="width: 600px; height: auto"
+        />
+      </div>
+      <div>
+        <img
+          src="./img/5.png"
+          alt="Image 3"
+          style="width: 600px; height: auto"
+        />
+      </div>
+    </div>
 
-<div style="display: flex; flex-direction: column; align-items: center; gap: 20px">
-  <div><img src="./img/1..png" alt="Image 1" style="width: 600px; height: auto;" /></div>
-  <div><img src="./img/2.png" alt="Image 2" style="width: 600px; height: auto;" /></div>
-  <div>
-    <img src="./img/3.png" alt="Image 3" style="width: 300px; height: auto;" />
-    <img src="./img/5.png" alt="Image 3" style="width: 300px; height: auto;" />
-  </div>
-</div>
+    <script>
+      function createSnowflakes() {
+        playMusic();
+        const snowflakes = document.querySelectorAll(".snowflake");
+        snowflakes.forEach((snowflake) => {
+          playMusic();
+          snowflake.style.left = Math.random() * 100 + "%";
+          snowflake.style.animationDuration = Math.random() * 3 + 2 + "s";
+          snowflake.style.opacity = Math.random();
+        });
+      }
+      createSnowflakes();
 
-<script>
-function createSnowflakes() {
-  playMusic();
-  const snowflakes = document.querySelectorAll('.snowflake');
-  snowflakes.forEach(snowflake => {
-    playMusic();
-    snowflake.style.left = Math.random() * 100 + '%';
-    snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
-    snowflake.style.opacity = Math.random();
-  });
-}
-createSnowflakes();
+      function playMusic() {
+        const audio = document.getElementById("backgroundMusic");
+        audio.muted = false; // Bỏ mute để phát nhạc
+        audio
+          .play()
+          .then(() => {
+            console.log("Nhạc đang phát!");
+          })
+          .catch((error) => {
+            console.log("Autoplay bị chặn, cần người dùng tương tác", error);
+          });
+      }
 
-function playMusic() {
-  const audio = document.getElementById("backgroundMusic");
-  audio.muted = false;  // Bỏ mute để phát nhạc
-  audio.play().then(() => {
-    console.log("Nhạc đang phát!");
-  }).catch(error => {
-    console.log("Autoplay bị chặn, cần người dùng tương tác", error);
-  });
-}
+      // Kích hoạt phát nhạc ngay khi trang load
+      document.addEventListener("DOMContentLoaded", playMusic);
 
-// Kích hoạt phát nhạc ngay khi trang load
-document.addEventListener("DOMContentLoaded", playMusic);
-
-// Nếu bị chặn, phát nhạc khi người dùng tương tác
-["click", "mousemove", "touchstart", "scroll"].forEach(event => {
-  document.addEventListener(event, playMusic, { once: true });
-});</script>
-
-</body>
+      // Nếu bị chặn, phát nhạc khi người dùng tương tác
+      ["click", "mousemove", "touchstart", "scroll"].forEach((event) => {
+        document.addEventListener(event, playMusic, { once: true });
+      });
+    </script>
+  </body>
 </html>
